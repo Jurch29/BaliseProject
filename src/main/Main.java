@@ -1,13 +1,8 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import graphicLayer.GOval;
-import graphicLayer.GRect;
-import graphicLayer.GSpace;
 import model.Balise;
 import model.Satellite;
 import tools.GlobaleVariable;
