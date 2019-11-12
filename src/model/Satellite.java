@@ -12,21 +12,17 @@ import tools.GlobaleVariable;
 
 public class Satellite {
 	
-	private GRect satDraw;
+	Point position;
 	private ArrayList<Integer> memoire;
-
-	public Satellite(GRect satellite) {
+	
+	public Satellite(Point position) {
 		// TODO Auto-generated constructor stub
-		this.satDraw = satellite;
 		this.memoire = new ArrayList<Integer>();
+		this.position = position;
 	}
 	
-	public GRect getSatDraw() {
-		return satDraw;
-	}
-
-	public void setSatDraw(GRect satDraw) {
-		this.satDraw = satDraw;
+	public Point getPosition() {
+		return this.position;
 	}
 	
 	public void addDataToMemory(int[] data) {
@@ -35,11 +31,11 @@ public class Satellite {
 	}
 	
 	public void step() {
-		if (this.satDraw.getX()+GlobaleVariable.vitesseSat>GlobaleVariable.sizeX) {
-			this.satDraw.setPosition(new Point(this.satDraw.getX()+GlobaleVariable.vitesseSat-GlobaleVariable.sizeX,this.satDraw.getY()));
+		if (this.position.x+GlobaleVariable.vitesseSat>GlobaleVariable.sizeX) {
+			this.position = new Point(this.position.x+GlobaleVariable.vitesseSat-GlobaleVariable.sizeX,this.position.y);
 		}
 		else
-			this.satDraw.setPosition(new Point(this.satDraw.getX()+GlobaleVariable.vitesseSat,this.satDraw.getY()));
+			this.position = new Point(this.position.x+GlobaleVariable.vitesseSat,this.position.y);
 		
 		Communication.reception(this);
 	}
