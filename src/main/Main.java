@@ -18,19 +18,20 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-//		System.out.println("Nombre de satellite ?");
-//		int nbSat = Integer.parseInt(Tools.readKeyboard());
+		System.out.println("Nombre de satellite ?");
+		int nbSat = Integer.parseInt(Tools.readKeyboard());
 		
-//		System.out.println("Nombre de balises ?");
-//		int nbBalise = Integer.parseInt(Tools.readKeyboard());
+		System.out.println("Nombre de balises ?");
+		int nbBalise = Integer.parseInt(Tools.readKeyboard());
 		
-		runWorld(1,3);
+		runWorld(nbSat,nbBalise);
 	}
 
 	private static void runWorld(int nbSat, int nbBalise) {
 		// TODO Auto-generated method stub
 		ArrayList<Satellite> sats = new ArrayList<Satellite>();
 		ArrayList<Balise> balises = new ArrayList<Balise>();
+		
 		GSpace w = new GSpace("Baliseur", new Dimension(GlobaleVariable.sizeX, GlobaleVariable.sizeY));
 		w.open();
 
@@ -53,18 +54,38 @@ public class Main {
 			sats.add(sat);
 		}
 		
-		for (int i = 0 ; i < nbBalise ; i++) {
-			GOval balise1 = new GOval();
-			balise1.setPosition(new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5));
-			balise1.setDimension(new Dimension(10,10));
-			balise1.setColor(Color.black);
-			w.addElement(balise1);
-			Balise balise = new Balise(balise1);
-			balises.add(balise);
-		}
+		GOval baliseDraw1 = new GOval();
+		baliseDraw1.setPosition(new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5));
+		baliseDraw1.setDimension(new Dimension(10,10));
+		baliseDraw1.setColor(Color.black);
+		w.addElement(baliseDraw1);
+		Balise balise1 = new Balise(baliseDraw1);
+		balise1.addProfondeur(10);
+		balises.add(balise1);
 		
+		GOval baliseDraw2 = new GOval();
+		baliseDraw2.setPosition(new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5));
+		baliseDraw2.setDimension(new Dimension(10,10));
+		baliseDraw2.setColor(Color.black);
+		w.addElement(baliseDraw2);
+		Balise balise2 = new Balise(baliseDraw2);
+		balise2.addProfondeur(30);
+		balises.add(balise2);
+		
+//		for (int i = 0 ; i < nbBalise ; i++) {
+//			GOval baliseDraw = new GOval();
+//			baliseDraw.setPosition(new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5));
+//			baliseDraw.setDimension(new Dimension(10,10));
+//			baliseDraw.setColor(Color.black);
+//			w.addElement(baliseDraw);
+//			Balise balise = new Balise(baliseDraw);
+//			balise.addProfondeur(10);
+//			balises.add(balise);
+//		}
+		
+	
 		while (true) {
-			Tools.sleep(1000);
+			Tools.sleep(GlobaleVariable.vitesseSimulation);
 			for (int i = 0 ; i < sats.size() ; i++) {
 				sats.get(i).step();
 			}

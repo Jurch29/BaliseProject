@@ -6,7 +6,7 @@ import model.Satellite;
 
 public class Communication {
 	
-	private static ArrayList<Satellite> sats = new ArrayList<Satellite>();;
+	private static ArrayList<Satellite> sats = new ArrayList<Satellite>();
 
 	public static boolean emission(int x, int[] data) {
 		// TODO Auto-generated method stub
