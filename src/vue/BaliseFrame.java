@@ -68,5 +68,10 @@ public class BaliseFrame {
 			valeur.setPosition(cle.getPosition());
 		}
 	}
+	
+	public void updateBalise(Balise b) {
+		GOval baliseDraw = this.balises.get(b);
+		baliseDraw.setPosition(b.getPosition());
+	}
 
 }

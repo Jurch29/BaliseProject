@@ -22,9 +22,11 @@ public class Mouvement extends Phase { //phase de mouvement seule (si d=null bal
 	
 	@Override
 	public Phase nextPhase(Balise b) {
-
-		if (this.deplacement.isDeplacementFini())
-			return null;
+		
+		if (this.deplacement!=null) {
+			if (this.deplacement.isDeplacementFini())
+				return null;
+		}
 		
 		return this;
 	}

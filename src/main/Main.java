@@ -28,6 +28,8 @@ public class Main {
 		System.out.println("Nombre de balises ?");
 		int nbBalise = Integer.parseInt(Tools.readKeyboard());
 		
+		BaliseFrame app = new BaliseFrame();
+		
 		int ecart = GlobaleVariable.sizeX/nbSat;
 		for (int i = 0 ; i < nbSat ; i++) {
 			Satellite sat = new Satellite(new Point(ecart*i,10));
@@ -36,10 +38,11 @@ public class Main {
 		
 		for (int i = 0 ; i < nbBalise ; i++) {
 			Point p = new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
-			Balise balise = new Balise(p);
+			Balise balise = new Balise(p, app);
 			balise.setPhase(new Collecte(new Horizontale(15)));
 			balise.addProfondeur(15);
 			balises.add(balise);
+			app.addBalise(balise, p);
 		}
 		
 		for (int i = 0 ; i < sats.size() ; i++) {
@@ -161,10 +164,10 @@ public class Main {
 	
 	
 	/*Observable : -register/unregister des observers
-	 * 			   -il envoie un message aux Observers quand la propriété qui interesse les observes est modifié
-	 * 			   ex : état "synchronisable"/"synchronisé"
+	 * 			   -il envoie un message aux Observers quand la propriï¿½tï¿½ qui interesse les observer est modifiï¿½
+	 * 			   ex : ï¿½tat "synchronisable"/"synchronisï¿½"
 	 * 
-	 * Observer : il est capable de se mettre à jour par update (Observable o)
+	 * Observer : il est capable de se mettre ï¿½ jour par update (Observable o)
 	 */
 	
 }

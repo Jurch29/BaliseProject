@@ -2,6 +2,8 @@ package deplacement;
 
 import java.awt.Point;
 
+import tools.GlobaleVariable;
+
 public class Horizontale extends Deplacement {
 	
 	private int value;
@@ -27,7 +29,8 @@ public class Horizontale extends Deplacement {
 	@Override
 	public Point getNextPoint(Point p) {
 		// TODO Auto-generated method stub
-		return null;
+		value--;
+		return new Point(p.x+GlobaleVariable.vitesseBalise, p.y);
 	}
 
 }
