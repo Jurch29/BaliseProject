@@ -85,5 +85,4 @@ public class Balise extends SimulationElement {
 			vue.updateBalise(this);
 		}
 	}
-	
 }
