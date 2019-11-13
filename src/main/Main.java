@@ -1,8 +1,12 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import graphicLayer.GRect;
+import graphicLayer.GSpace;
 import model.Balise;
 import model.Satellite;
 import tools.GlobaleVariable;
@@ -22,38 +26,30 @@ public class Main {
 		System.out.println("Nombre de balises ?");
 		int nbBalise = Integer.parseInt(Tools.readKeyboard());
 		
-		BaliseFrame app = new BaliseFrame();
-		
 		int ecart = GlobaleVariable.sizeX/nbSat;
 		for (int i = 0 ; i < nbSat ; i++) {
 			Satellite sat = new Satellite(new Point(ecart*i,10));
 			sats.add(sat);
-			app.addSatellite(sat, new Point(ecart*i,10));
 		}
 		
 		for (int i = 0 ; i < nbBalise ; i++) {
 			Point p = new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
 			Balise balise = new Balise(p);
-			balises.add(balise);
 			balise.addProfondeur(15);
-			app.addBalise(balise, p);
+			balises.add(balise);
 		}
 		
-		while (true) {
-			Tools.sleep(GlobaleVariable.vitesseSimulation);
-			for (int i = 0 ; i < sats.size() ; i++) {
-				sats.get(i).step();
-			}
-			for (int i = 0 ; i < balises.size() ; i++) {
-				balises.get(i).step();
-			}
-			app.update();
+		for (int i = 0 ; i < sats.size() ; i++) {
+			sats.get(i).start();
+		}
+		for (int i = 0 ; i < balises.size() ; i++) {
+			balises.get(i).start();
 		}
 		
 	}
 
-	private static void runWorld(int nbSat, int nbBalise) {
-		// TODO Auto-generated method stub
+//	private static void premiereVersion(int nbSat, int nbBalise) {
+
 //		ArrayList<Satellite> sats = new ArrayList<Satellite>();
 //		ArrayList<Balise> balises = new ArrayList<Balise>();
 //		
@@ -87,7 +83,7 @@ public class Main {
 //		Balise balise1 = new Balise(baliseDraw1);
 //		balise1.addProfondeur(10);
 //		balises.add(balise1);
-//		
+////		
 //		GOval baliseDraw2 = new GOval();
 //		baliseDraw2.setPosition(new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5));
 //		baliseDraw2.setDimension(new Dimension(10,10));
@@ -96,7 +92,7 @@ public class Main {
 //		Balise balise2 = new Balise(baliseDraw2);
 //		balise2.addProfondeur(30);
 //		balises.add(balise2);
-		
+//		
 //		for (int i = 0 ; i < nbBalise ; i++) {
 //			GOval baliseDraw = new GOval();
 //			baliseDraw.setPosition(new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5));
@@ -107,8 +103,8 @@ public class Main {
 //			balise.addProfondeur(10);
 //			balises.add(balise);
 //		}
-		
-	
+//		
+//	
 //		while (true) {
 //			Tools.sleep(GlobaleVariable.vitesseSimulation);
 //			for (int i = 0 ; i < sats.size() ; i++) {
@@ -118,5 +114,44 @@ public class Main {
 //				balises.get(i).step();
 //			}
 //		}
-	}
+//	}
+	
+//	public static void secondeversion() {
+//		ArrayList<Satellite> sats = new ArrayList<Satellite>();
+//		ArrayList<Balise> balises = new ArrayList<Balise>();
+//		
+//		System.out.println("Nombre de satellite ?");
+//		int nbSat = Integer.parseInt(Tools.readKeyboard());
+//		
+//		System.out.println("Nombre de balises ?");
+//		int nbBalise = Integer.parseInt(Tools.readKeyboard());
+//		
+//		BaliseFrame app = new BaliseFrame();
+//		
+//		int ecart = GlobaleVariable.sizeX/nbSat;
+//		for (int i = 0 ; i < nbSat ; i++) {
+//			Satellite sat = new Satellite(new Point(ecart*i,10));
+//			sats.add(sat);
+//			app.addSatellite(sat, new Point(ecart*i,10));
+//		}
+//		
+//		for (int i = 0 ; i < nbBalise ; i++) {
+//			Point p = new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
+//			Balise balise = new Balise(p);
+//			balises.add(balise);
+//			balise.addProfondeur(15);
+//			app.addBalise(balise, p);
+//		}
+//		
+//		while (true) {
+//			Tools.sleep(GlobaleVariable.vitesseSimulation);
+//			for (int i = 0 ; i < sats.size() ; i++) {
+//				sats.get(i).run();
+//			}
+//			for (int i = 0 ; i < balises.size() ; i++) {
+//				balises.get(i).run();
+//			}
+//			app.update();
+//		}
+//	}
 }

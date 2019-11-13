@@ -6,11 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import graphicLayer.GRect;
 import tools.Communication;
 import tools.GlobaleVariable;
 
-public class Satellite {
+public class Satellite extends Thread {
 	
 	Point position;
 	private ArrayList<Integer> memoire;
@@ -30,7 +29,7 @@ public class Satellite {
 		memoire.addAll(list);
 	}
 	
-	public void step() {
+	public void run() {
 		if (this.position.x+GlobaleVariable.vitesseSat>GlobaleVariable.sizeX) {
 			this.position = new Point(this.position.x+GlobaleVariable.vitesseSat-GlobaleVariable.sizeX,this.position.y);
 		}
