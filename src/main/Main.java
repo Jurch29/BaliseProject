@@ -5,10 +5,12 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import deplacement.Horizontale;
 import graphicLayer.GRect;
 import graphicLayer.GSpace;
 import model.Balise;
 import model.Satellite;
+import phase.Collecte;
 import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
@@ -35,6 +37,7 @@ public class Main {
 		for (int i = 0 ; i < nbBalise ; i++) {
 			Point p = new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
 			Balise balise = new Balise(p);
+			balise.setPhase(new Collecte(new Horizontale(15)));
 			balise.addProfondeur(15);
 			balises.add(balise);
 		}
@@ -154,4 +157,14 @@ public class Main {
 //			app.update();
 //		}
 //	}
+	
+	
+	
+	/*Observable : -register/unregister des observers
+	 * 			   -il envoie un message aux Observers quand la propriété qui interesse les observes est modifié
+	 * 			   ex : état "synchronisable"/"synchronisé"
+	 * 
+	 * Observer : il est capable de se mettre à jour par update (Observable o)
+	 */
+	
 }

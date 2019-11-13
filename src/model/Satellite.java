@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import tools.Communication;
 import tools.GlobaleVariable;
 
-public class Satellite extends Thread {
+public class Satellite extends SimulationElement {
 	
 	Point position;
 	private ArrayList<Integer> memoire;
@@ -29,6 +29,7 @@ public class Satellite extends Thread {
 		memoire.addAll(list);
 	}
 	
+	@Override
 	public void run() {
 		if (this.position.x+GlobaleVariable.vitesseSat>GlobaleVariable.sizeX) {
 			this.position = new Point(this.position.x+GlobaleVariable.vitesseSat-GlobaleVariable.sizeX,this.position.y);

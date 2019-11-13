@@ -10,7 +10,7 @@ import phase.Phase;
 import tools.Communication;
 import tools.GlobaleVariable;
 
-public class Balise extends Thread {
+public class Balise extends SimulationElement {
 
 	private Point position;
 	private int data[];
@@ -47,24 +47,32 @@ public class Balise extends Thread {
 		this.profondeur += profondeur;
 	}
 	
+	public boolean isMemoryFull() {
+		// TODO Auto-generated method stub
+		return nbData==9;
+	}
+	
+	public void addData(int data) {
+		this.data[nbData] = data;
+	}
+	
+	public void resetData() {
+		this.data = new int[10];
+		this.nbData = 0;
+	}
+	
+	@Override
 	public void run() {
-		if (this.profondeur > 0)
-			this.phase=new Mouvement(new Verticale(profondeur));
+		if (this.profondeur > 0) { //Si on commence par une phase de profondeur (mouvement(vertical(value)))
+			Phase p = new Mouvement(new Verticale(profondeur));
+			while (p.nextPhase(this)!=null) {
+				p.step(this);
+			}
+		}
 		while (this.baliseRun) {
 			this.phase.step(this);
 			this.phase = this.phase.nextPhase(this);
 		}
 	}
 	
-	public void emission() {
-		if (Communication.emission(this.position.x, data)) {  //on à émit nos data à un satellite
-			this.data = new int[10];
-//			this.enEmission = false;
-		}
-	}
-	
-	public void goToProfondeur() {
-		this.position = new Point(this.position.x, this.position.y+GlobaleVariable.vitesseBalise);
-		this.profondeur--;
-	}
 }

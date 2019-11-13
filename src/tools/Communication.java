@@ -13,7 +13,7 @@ public class Communication {
 		for (int i = 0 ; i < sats.size() ; i++) {
 			if (x>sats.get(i).getPosition().x-10 && x<sats.get(i).getPosition().y+10) {
 				//On est dans une zone de réception du satellite (i)
-				System.out.println("Zone de réception");
+				System.out.println("Zone de r�ception");
 				sats.get(i).addDataToMemory(data);
 				return true;
 			}
