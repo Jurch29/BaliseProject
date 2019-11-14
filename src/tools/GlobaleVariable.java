@@ -2,7 +2,7 @@ package tools;
 
 public class GlobaleVariable {
 
-	public static final int vitesseSat = 50;
+	public static final int vitesseSat = 5;
 	public static final int vitesseBalise = 5;
 	public static int sizeX = 800;
 	public static int sizeY = 600;

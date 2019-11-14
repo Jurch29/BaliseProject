@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import deplacement.Direction;
 import deplacement.Horizontale;
 import graphicLayer.GRect;
 import graphicLayer.GSpace;
@@ -32,14 +33,15 @@ public class Main {
 		
 		int ecart = GlobaleVariable.sizeX/nbSat;
 		for (int i = 0 ; i < nbSat ; i++) {
-			Satellite sat = new Satellite(new Point(ecart*i,10));
+			Satellite sat = new Satellite(new Point(ecart*i,10), app);
 			sats.add(sat);
+			app.addSatellite(sat, new Point(ecart*i,10));
 		}
 		
 		for (int i = 0 ; i < nbBalise ; i++) {
 			Point p = new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
 			Balise balise = new Balise(p, app);
-			balise.setPhase(new Collecte(new Horizontale(15)));
+			balise.setPhase(new Collecte(new Horizontale(15, Direction.Bas)));
 			balise.addProfondeur(15);
 			balises.add(balise);
 			app.addBalise(balise, p);
@@ -161,13 +163,23 @@ public class Main {
 //		}
 //	}
 	
-	
-	
 	/*Observable : -register/unregister des observers
 	 * 			   -il envoie un message aux Observers quand la propri�t� qui interesse les observer est modifi�
 	 * 			   ex : �tat "synchronisable"/"synchronis�"
 	 * 
 	 * Observer : il est capable de se mettre � jour par update (Observable o)
+	 *
+	 *Class Balise{
+	 *
+	 *void update(object source){
+	 *if (ensurface+enfenetreSat)
+	 *synchroAvec(source)
+	 *}
+	 *
+	 *Class Satellite{
+	 *void avance(){
+	 *vable.notifyObserver(this);
+	 *}
 	 */
 	
 }

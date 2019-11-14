@@ -7,9 +7,11 @@ import tools.GlobaleVariable;
 public class Verticale extends Deplacement {
 
 	private int value;
+	private Direction direction;
 
-	public Verticale(int value) {
+	public Verticale(int value, Direction d) {
 		this.value = value;
+		this.direction = d;
 	}
 	
 	public int getValue() {
@@ -29,7 +31,11 @@ public class Verticale extends Deplacement {
 	public Point getNextPoint(Point p) {
 		// TODO Auto-generated method stubs
 		value--;
-		return new Point(p.x, p.y+GlobaleVariable.vitesseBalise);
+		if (this.direction==Direction.Bas)
+			return new Point(p.x, p.y+GlobaleVariable.vitesseBalise);
+		else if (this.direction==Direction.Haut)
+			return new Point(p.x, p.y-GlobaleVariable.vitesseBalise);
+		else
+			return null;
 	}
-
 }

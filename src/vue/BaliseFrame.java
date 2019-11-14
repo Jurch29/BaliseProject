@@ -74,4 +74,8 @@ public class BaliseFrame {
 		baliseDraw.setPosition(b.getPosition());
 	}
 
+	public void updateSatellite(Satellite sat) {
+		GRect satDraw = this.satellites.get(sat);
+		satDraw.setPosition(sat.getPosition());
+	}
 }

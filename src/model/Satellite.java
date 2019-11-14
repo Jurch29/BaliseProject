@@ -8,16 +8,26 @@ import java.util.stream.Collectors;
 
 import tools.Communication;
 import tools.GlobaleVariable;
+import tools.Observable;
+import tools.Observer;
+import tools.Tools;
+import vue.BaliseFrame;
 
-public class Satellite extends SimulationElement {
+public class Satellite extends SimulationElement implements Observable {
 	
 	Point position;
 	private ArrayList<Integer> memoire;
 	
-	public Satellite(Point position) {
+	private ArrayList<Observer> balises;
+	private BaliseFrame vue;
+	
+	public Satellite(Point position, BaliseFrame app) {
 		// TODO Auto-generated constructor stub
 		this.memoire = new ArrayList<Integer>();
 		this.position = position;
+		
+		this.vue = app;
+		this.balises = new ArrayList<Observer>();
 	}
 	
 	public Point getPosition() {
@@ -31,12 +41,41 @@ public class Satellite extends SimulationElement {
 	
 	@Override
 	public void run() {
-		if (this.position.x+GlobaleVariable.vitesseSat>GlobaleVariable.sizeX) {
-			this.position = new Point(this.position.x+GlobaleVariable.vitesseSat-GlobaleVariable.sizeX,this.position.y);
+		while (true) {
+			Tools.sleep(GlobaleVariable.vitesseSimulation);
+			if (this.position.x+GlobaleVariable.vitesseSat>GlobaleVariable.sizeX) {
+				this.position = new Point(this.position.x+GlobaleVariable.vitesseSat-GlobaleVariable.sizeX,this.position.y);
+			}
+			else
+				this.position = new Point(this.position.x+GlobaleVariable.vitesseSat,this.position.y);
+			
+			this.vue.updateSatellite(this);
 		}
-		else
-			this.position = new Point(this.position.x+GlobaleVariable.vitesseSat,this.position.y);
+	}
+
+	@Override
+	public void register(Observer o) {
+		//TODO Auto-generated method stub
+		this.balises.add(o);
+	}
+
+	@Override
+	public void unregister(Observer o) {
+		//TODO Auto-generated method stub
+		this.balises.remove(o);
+	}
+
+	@Override
+	public void notifyObservers() {
+		//TODO Auto-generated method stub
+		for (int i = 0 ; i < this.balises.size() ; i++) {
+			this.balises.get(i).updateFrom(this);
+		}
+	}
+
+	@Override
+	public void notifyObservers(Object arg) {
+		//TODO Auto-generated method stub
 		
-		Communication.reception(this);
 	}
 }

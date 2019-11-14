@@ -6,8 +6,6 @@ import model.Balise;
 
 public class Collecte extends Phase {
 	
-	private Deplacement deplacement;
-	
 	public Collecte(Deplacement d) {
 		this.deplacement = d;
 	}
@@ -26,6 +24,7 @@ public class Collecte extends Phase {
 	public Phase nextPhase(Balise b) {
 		if (b.isMemoryFull()) {   //Si condition sortie
 			System.out.println("Passage en SynchSat");
+			b.synchroReady();
 			return new SynchSat();
 		}
 		if (this.deplacement.isDeplacementFini())

@@ -1,18 +1,19 @@
 package model;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
-import deplacement.Deplacement;
+import deplacement.Direction;
 import deplacement.Verticale;
-import graphicLayer.GOval;
 import phase.Mouvement;
 import phase.Phase;
-import tools.Communication;
 import tools.GlobaleVariable;
+import tools.Observable;
+import tools.Observer;
 import tools.Tools;
 import vue.BaliseFrame;
 
-public class Balise extends SimulationElement {
+public class Balise extends SimulationElement implements Observer {
 
 	private Point position;
 	private int data[];
@@ -21,6 +22,7 @@ public class Balise extends SimulationElement {
 	private Phase phase;
 	private boolean baliseRun;
 	
+	private ArrayList<Satellite> sats;
 	private BaliseFrame vue;
 	
 	public Balise(Point p, BaliseFrame app) {
@@ -31,12 +33,13 @@ public class Balise extends SimulationElement {
 		this.baliseRun = true;
 		
 		this.vue = app;
+		this.sats = new ArrayList<Satellite>();
 	}
 	
 	public Phase getPhase() {
 		return phase;
 	}
-
+	
 	public void setPhase(Phase phase) {
 		this.phase = phase;
 	}
@@ -71,7 +74,7 @@ public class Balise extends SimulationElement {
 	@Override
 	public void run() {
 		if (this.profondeur > 0) { //Si on commence par une phase de profondeur (mouvement(vertical(value)))
-			Phase p = new Mouvement(new Verticale(profondeur));
+			Phase p = new Mouvement(new Verticale(profondeur, Direction.Bas));
 			while (p.nextPhase(this)!=null) {
 				Tools.sleep(GlobaleVariable.vitesseSimulation);
 				p.step(this);
@@ -84,5 +87,26 @@ public class Balise extends SimulationElement {
 			this.phase = this.phase.nextPhase(this);
 			vue.updateBalise(this);
 		}
+	}
+	
+	public void synchroReady() {
+		for (int i = 0 ; i < this.sats.size() ; i++) {
+			this.sats.get(i).register(this);
+		}
+	}
+
+	@Override
+	public void updateFrom(Observable o) {
+		// TODO Auto-generated method stub
+		if (this.position.x>((Satellite) o).getPosition().x-10 && this.position.y<((Satellite) o).getPosition().y+10) {
+				//On est dans une zone de réception du satellite (i)
+				System.out.println("Zone de réception");
+		}
+	}
+
+	@Override
+	public void updateFrom(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -7,10 +7,12 @@ import tools.GlobaleVariable;
 public class Horizontale extends Deplacement {
 	
 	private int value;
+	private Direction direction;
 
-	public Horizontale(int value) {
-		// TODO Auto-generated constructor stub
+	public Horizontale(int value, Direction d) {
+		//TODO Auto-generated constructor stub
 		this.value = value;
+		this.direction = d;
 	}
 	
 	public int getValue() {
