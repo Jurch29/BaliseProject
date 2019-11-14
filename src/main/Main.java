@@ -43,6 +43,7 @@ public class Main {
 			Balise balise = new Balise(p, app);
 			balise.setPhase(new Collecte(new Horizontale(15, Direction.Bas)));
 			balise.addProfondeur(15);
+			balise.addAllSats(sats);
 			balises.add(balise);
 			app.addBalise(balise, p);
 		}

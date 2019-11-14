@@ -18,6 +18,7 @@ public class Satellite extends SimulationElement implements Observable {
 	Point position;
 	private ArrayList<Integer> memoire;
 	
+	private boolean locked;
 	private ArrayList<Observer> balises;
 	private BaliseFrame vue;
 	
@@ -26,6 +27,7 @@ public class Satellite extends SimulationElement implements Observable {
 		this.memoire = new ArrayList<Integer>();
 		this.position = position;
 		
+		this.locked = false;
 		this.vue = app;
 		this.balises = new ArrayList<Observer>();
 	}
@@ -37,6 +39,7 @@ public class Satellite extends SimulationElement implements Observable {
 	public void addDataToMemory(int[] data) {
 		List<Integer> list = Arrays.stream(data).boxed().collect(Collectors.toList());
 		memoire.addAll(list);
+		this.locked = false;
 	}
 	
 	@Override
@@ -49,14 +52,24 @@ public class Satellite extends SimulationElement implements Observable {
 			else
 				this.position = new Point(this.position.x+GlobaleVariable.vitesseSat,this.position.y);
 			
+			this.notifyObservers();
 			this.vue.updateSatellite(this);
 		}
+	}
+	
+	public boolean lock() {
+		if (!this.locked) {
+			this.locked = true;
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public void register(Observer o) {
 		//TODO Auto-generated method stub
-		this.balises.add(o);
+		if (!this.balises.contains(o))
+			this.balises.add(o);
 	}
 
 	@Override

@@ -24,11 +24,13 @@ public class Collecte extends Phase {
 	public Phase nextPhase(Balise b) {
 		if (b.isMemoryFull()) {   //Si condition sortie
 			System.out.println("Passage en SynchSat");
-			b.synchroReady();
-			return new SynchSat();
+			return new SynchSat(this.deplacement);
 		}
-		if (this.deplacement.isDeplacementFini())
-			return new Mouvement(null);
+		if (this.deplacement.isDeplacementFini()) {
+			return this;
+//			return new Mouvement(null);
+		}
+			
 		
 		return this;
 	}

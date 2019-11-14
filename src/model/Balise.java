@@ -56,6 +56,10 @@ public class Balise extends SimulationElement implements Observer {
 		this.profondeur += profondeur;
 	}
 	
+	public boolean isMemoryEmpty() {
+		return this.nbData == 0;
+	}
+	
 	public boolean isMemoryFull() {
 		// TODO Auto-generated method stub
 		return this.nbData==9;
@@ -98,9 +102,12 @@ public class Balise extends SimulationElement implements Observer {
 	@Override
 	public void updateFrom(Observable o) {
 		// TODO Auto-generated method stub
-		if (this.position.x>((Satellite) o).getPosition().x-10 && this.position.y<((Satellite) o).getPosition().y+10) {
+		if (this.position.x>((Satellite) o).getPosition().x-10 && this.position.x<((Satellite) o).getPosition().x+10) {
 				//On est dans une zone de réception du satellite (i)
-				System.out.println("Zone de réception");
+				if (((Satellite) o).lock()) {
+					((Satellite) o).addDataToMemory(this.data);
+					this.resetData();
+				}
 		}
 	}
 
@@ -108,5 +115,10 @@ public class Balise extends SimulationElement implements Observer {
 	public void updateFrom(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void addAllSats(ArrayList<Satellite> sats) {
+		// TODO Auto-generated method stub
+		this.sats.addAll(sats);
 	}
 }
