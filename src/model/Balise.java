@@ -3,6 +3,7 @@ package model;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import deplacement.Deplacement;
 import deplacement.Direction;
 import deplacement.Verticale;
 import phase.Mouvement;
@@ -20,6 +21,7 @@ public class Balise extends SimulationElement implements Observer {
 	private int profondeur;
 	private int nbData;
 	private Phase phase;
+	private Deplacement dep;
 	private boolean baliseRun;
 	
 	private ArrayList<Satellite> sats;
@@ -44,6 +46,14 @@ public class Balise extends SimulationElement implements Observer {
 		this.phase = phase;
 	}
 	
+	public Deplacement getDep() {
+		return dep;
+	}
+
+	public void setDep(Deplacement dep) {
+		this.dep = dep;
+	}
+	
 	public void setPosition(Point position) {
 		this.position = position;
 	}
@@ -51,9 +61,18 @@ public class Balise extends SimulationElement implements Observer {
 	public Point getPosition() {
 		return position;
 	}
+	
+	public int getNbData() {
+		return this.nbData;
+	}
 
+	public int getProfondeur() {
+		return this.profondeur;
+	}
+	
 	public void addProfondeur(int profondeur) {
 		this.profondeur += profondeur;
+		this.phase = new Mouvement(new Verticale(this.profondeur, Direction.Bas));
 	}
 	
 	public boolean isMemoryEmpty() {
@@ -71,20 +90,13 @@ public class Balise extends SimulationElement implements Observer {
 	}
 	
 	public void resetData() {
+//		System.out.println("Data reset");
 		this.data = new int[10];
 		this.nbData = 0;
 	}
 	
 	@Override
 	public void run() {
-		if (this.profondeur > 0) { //Si on commence par une phase de profondeur (mouvement(vertical(value)))
-			Phase p = new Mouvement(new Verticale(profondeur, Direction.Bas));
-			while (p.nextPhase(this)!=null) {
-				Tools.sleep(GlobaleVariable.vitesseSimulation);
-				p.step(this);
-				vue.updateBalise(this);
-			}
-		}
 		while (this.baliseRun) {
 			Tools.sleep(GlobaleVariable.vitesseSimulation);
 			this.phase.step(this);
@@ -105,8 +117,12 @@ public class Balise extends SimulationElement implements Observer {
 		if (this.position.x>((Satellite) o).getPosition().x-10 && this.position.x<((Satellite) o).getPosition().x+10) {
 				//On est dans une zone de réception du satellite (i)
 				if (((Satellite) o).lock()) {
+					System.out.println("RESeT");
 					((Satellite) o).addDataToMemory(this.data);
 					this.resetData();
+					for (int i = 0 ; i < this.sats.size() ; i++) {
+						this.sats.get(i).unregister(this);
+					}
 				}
 		}
 	}

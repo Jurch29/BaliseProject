@@ -7,6 +7,6 @@ public class GlobaleVariable {
 	public static int sizeX = 800;
 	public static int sizeY = 600;
 	public static int hauteurMer = 200;
-	public static int vitesseSimulation = 100;
+	public static int vitesseSimulation = 50;
 	
 }

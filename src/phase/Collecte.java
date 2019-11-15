@@ -16,22 +16,24 @@ public class Collecte extends Phase {
 		if (deplacement!=null) {
 			b.setPosition(this.deplacement.getNextPoint(b.getPosition()));
 		}
-		if (!b.isMemoryFull())
-			b.addData(ThreadLocalRandom.current().nextInt(0, 50 + 1));
+		if (!b.isMemoryFull()) {
+			if (ThreadLocalRandom.current().nextInt(0, 5 + 1) == 1)
+				b.addData(ThreadLocalRandom.current().nextInt(0, 50 + 1));
+		}
 	}
 	
 	@Override
 	public Phase nextPhase(Balise b) {
 		if (b.isMemoryFull()) {   //Si condition sortie
-			System.out.println("Passage en SynchSat");
 			return new SynchSat(this.deplacement);
+		}
+		else {
+//			System.out.println("je suis pas full : "+b.getNbData());
 		}
 		if (this.deplacement.isDeplacementFini()) {
 			return this;
 //			return new Mouvement(null);
 		}
-			
-		
 		return this;
 	}
 }

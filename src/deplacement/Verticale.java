@@ -31,10 +31,18 @@ public class Verticale extends Deplacement {
 	public Point getNextPoint(Point p) {
 		// TODO Auto-generated method stubs
 		value--;
-		if (this.direction==Direction.Bas)
-			return new Point(p.x, p.y+GlobaleVariable.vitesseBalise);
-		else if (this.direction==Direction.Haut)
-			return new Point(p.x, p.y-GlobaleVariable.vitesseBalise);
+		if (this.direction==Direction.Bas) {
+			if (p.y+GlobaleVariable.vitesseBalise>GlobaleVariable.sizeY-10) 
+				return new Point(p.x, p.y);
+			else
+				return new Point(p.x, p.y+GlobaleVariable.vitesseBalise);
+		}
+		else if (this.direction==Direction.Haut) {
+			if (p.y-GlobaleVariable.vitesseBalise<GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5)
+				return new Point(p.x, p.y);
+			else
+				return new Point(p.x, p.y-GlobaleVariable.vitesseBalise);
+		}
 		else
 			return null;
 	}
