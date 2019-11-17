@@ -117,7 +117,6 @@ public class Balise extends SimulationElement implements Observer {
 		if (this.position.x>((Satellite) o).getPosition().x-10 && this.position.x<((Satellite) o).getPosition().x+10) {
 				//On est dans une zone de réception du satellite (i)
 				if (((Satellite) o).lock()) {
-					System.out.println("RESeT");
 					((Satellite) o).addDataToMemory(this.data);
 					this.resetData();
 					for (int i = 0 ; i < this.sats.size() ; i++) {
