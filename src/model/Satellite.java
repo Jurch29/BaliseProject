@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import notification.PositionChange;
 import tools.Communication;
 import tools.GlobaleVariable;
 import tools.Observable;
@@ -52,7 +53,8 @@ public class Satellite extends SimulationElement implements Observable {
 			else
 				this.position = new Point(this.position.x+GlobaleVariable.vitesseSat,this.position.y);
 			
-			this.notifyObservers();
+//			this.notifyObservers();
+			this.notifyObservers(new PositionChange(this));
 			this.vue.updateSatellite(this);
 		}
 	}
@@ -89,6 +91,8 @@ public class Satellite extends SimulationElement implements Observable {
 	@Override
 	public void notifyObservers(Object arg) {
 		//TODO Auto-generated method stub
-		
+		for (int i = 0 ; i < this.balises.size() ; i++) {
+			this.balises.get(i).updateFrom(this, arg);
+		}
 	}
 }

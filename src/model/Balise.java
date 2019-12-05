@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import deplacement.Deplacement;
 import deplacement.Direction;
 import deplacement.Verticale;
+import notification.PositionChange;
 import phase.Mouvement;
 import phase.Phase;
 import tools.GlobaleVariable;
@@ -23,7 +24,6 @@ public class Balise extends SimulationElement implements Observer {
 	private Phase phase;
 	private Deplacement dep;
 	private boolean baliseRun;
-	
 	private ArrayList<Satellite> sats;
 	private BaliseFrame vue;
 	
@@ -33,9 +33,24 @@ public class Balise extends SimulationElement implements Observer {
 		this.profondeur = 0;
 		this.nbData = 0;
 		this.baliseRun = true;
-		
 		this.vue = app;
 		this.sats = new ArrayList<Satellite>();
+	}
+	
+	public int[] getData() {
+		return data;
+	}
+
+	public void setData(int[] data) {
+		this.data = data;
+	}
+	
+	public ArrayList<Satellite> getSats() {
+		return sats;
+	}
+
+	public void setSats(ArrayList<Satellite> sats) {
+		this.sats = sats;
 	}
 	
 	public Phase getPhase() {
@@ -129,7 +144,7 @@ public class Balise extends SimulationElement implements Observer {
 	@Override
 	public void updateFrom(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		
+		((PositionChange) arg).run(this);
 	}
 
 	public void addAllSats(ArrayList<Satellite> sats) {
