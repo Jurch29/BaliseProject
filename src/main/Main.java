@@ -1,18 +1,13 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 
 import deplacement.Direction;
 import deplacement.Horizontale;
 import deplacement.Verticale;
-import graphicLayer.GRect;
-import graphicLayer.GSpace;
 import model.Balise;
 import model.Satellite;
-import phase.Collecte;
 import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
@@ -27,8 +22,8 @@ public class Main {
 		System.out.println("Nombre de satellite ?");
 		int nbSat = Integer.parseInt(Tools.readKeyboard());
 		
-		System.out.println("Nombre de balises ?");
-		int nbBalise = Integer.parseInt(Tools.readKeyboard());
+//		System.out.println("Nombre de balises ?");
+//		int nbBalise = Integer.parseInt(Tools.readKeyboard());
 		
 		BaliseFrame app = new BaliseFrame();
 		

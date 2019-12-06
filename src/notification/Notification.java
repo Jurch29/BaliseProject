@@ -1,7 +1,7 @@
 package notification;
 
-import tools.Observable;
-import tools.Observer;
+import observable.Observable;
+import observable.Observer;
 
 public abstract class Notification {
 	

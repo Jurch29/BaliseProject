@@ -6,19 +6,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import notification.Notification;
 import notification.PositionChange;
-import tools.Communication;
+import observable.Observable;
+import observable.Observer;
 import tools.GlobaleVariable;
-import tools.Observable;
-import tools.Observer;
 import tools.Tools;
 import vue.BaliseFrame;
 
 public class Satellite extends SimulationElement implements Observable {
 	
-	Point position;
+	protected Point position;
 	private ArrayList<Integer> memoire;
-	
 	private boolean locked;
 	private ArrayList<Observer> balises;
 	private BaliseFrame vue;
@@ -27,7 +26,6 @@ public class Satellite extends SimulationElement implements Observable {
 		// TODO Auto-generated constructor stub
 		this.memoire = new ArrayList<Integer>();
 		this.position = position;
-		
 		this.locked = false;
 		this.vue = app;
 		this.balises = new ArrayList<Observer>();
@@ -53,8 +51,7 @@ public class Satellite extends SimulationElement implements Observable {
 			else
 				this.position = new Point(this.position.x+GlobaleVariable.vitesseSat,this.position.y);
 			
-//			this.notifyObservers();
-			this.notifyObservers(new PositionChange(this));
+			this.notifyAll(new PositionChange(this));
 			this.vue.updateSatellite(this);
 		}
 	}
@@ -81,18 +78,11 @@ public class Satellite extends SimulationElement implements Observable {
 	}
 
 	@Override
-	public void notifyObservers() {
-		//TODO Auto-generated method stub
+	public void notifyAll(Notification n) {
+		// TODO Auto-generated method stub
 		for (int i = 0 ; i < this.balises.size() ; i++) {
-			this.balises.get(i).updateFrom(this);
+			this.balises.get(i).receive(n);
 		}
 	}
 
-	@Override
-	public void notifyObservers(Object arg) {
-		//TODO Auto-generated method stub
-		for (int i = 0 ; i < this.balises.size() ; i++) {
-			this.balises.get(i).updateFrom(this, arg);
-		}
-	}
 }

@@ -2,8 +2,8 @@ package notification;
 
 import model.Balise;
 import model.Satellite;
-import tools.Observable;
-import tools.Observer;
+import observable.Observable;
+import observable.Observer;
 
 public class PositionChange extends Notification {
 
@@ -21,7 +21,7 @@ public class PositionChange extends Notification {
 				((Satellite) this.observable).addDataToMemory(((Balise)observer).getData());
 				((Balise)observer).resetData();
 				for (int i = 0 ; i < ((Balise)observer).getSats().size() ; i++) {
-					((Balise)observer).getSats().get(i).unregister(((Balise)observer));
+					((Balise)observer).getSats().get(i).unregister((observer));
 				}
 			}
 		}

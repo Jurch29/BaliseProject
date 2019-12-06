@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import deplacement.Deplacement;
 import deplacement.Direction;
 import deplacement.Verticale;
-import notification.PositionChange;
+import notification.Notification;
+import observable.Observer;
 import phase.Mouvement;
 import phase.Phase;
 import tools.GlobaleVariable;
-import tools.Observable;
-import tools.Observer;
 import tools.Tools;
 import vue.BaliseFrame;
 
@@ -116,7 +115,7 @@ public class Balise extends SimulationElement implements Observer {
 			Tools.sleep(GlobaleVariable.vitesseSimulation);
 			this.phase.step(this);
 			this.phase = this.phase.nextPhase(this);
-			vue.updateBalise(this);
+			this.vue.updateBalise(this);
 		}
 	}
 	
@@ -125,30 +124,16 @@ public class Balise extends SimulationElement implements Observer {
 			this.sats.get(i).register(this);
 		}
 	}
-
-	@Override
-	public void updateFrom(Observable o) {
-		// TODO Auto-generated method stub
-		if (this.position.x>((Satellite) o).getPosition().x-10 && this.position.x<((Satellite) o).getPosition().x+10) {
-				//On est dans une zone de réception du satellite (i)
-				if (((Satellite) o).lock()) {
-					((Satellite) o).addDataToMemory(this.data);
-					this.resetData();
-					for (int i = 0 ; i < this.sats.size() ; i++) {
-						this.sats.get(i).unregister(this);
-					}
-				}
-		}
-	}
-
-	@Override
-	public void updateFrom(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		((PositionChange) arg).run(this);
-	}
-
+	
 	public void addAllSats(ArrayList<Satellite> sats) {
 		// TODO Auto-generated method stub
 		this.sats.addAll(sats);
 	}
+
+	@Override
+	public void receive(Notification n) {
+		// TODO Auto-generated method stub
+		n.run(this);
+	}
+	
 }
