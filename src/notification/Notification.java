@@ -1,12 +1,9 @@
 package notification;
 
-import observable.Observable;
-import observable.Observer;
-
 public abstract class Notification {
 	
-	protected Observable observable;
+	protected Object source;
 	
-	public abstract void run(Observer observer);
+	public abstract void run(Synchronizable s);
 
 }

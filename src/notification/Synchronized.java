@@ -1,17 +1,14 @@
 package notification;
 
-import observable.Observable;
-import observable.Observer;
-
 public class Synchronized extends Notification {
 	
-	public Synchronized(Observable o) {
+	public Synchronized(Object o) {
 		// TODO Auto-generated constructor stub
-		this.observable = o;
+		this.source = o;
 	}
 
 	@Override
-	public void run(Observer observer) {
+	public void run(Synchronizable s) {
 		// TODO Auto-generated method stub
 		
 	}

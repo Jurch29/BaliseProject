@@ -6,7 +6,6 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import graphicLayer.GElement;
 import graphicLayer.GOval;
 import graphicLayer.GRect;
 import graphicLayer.GSpace;

@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import notification.Notification;
+import notification.Notifier;
 import notification.PositionChange;
+import notification.Synchronizable;
 import observable.Observable;
-import observable.Observer;
 import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
@@ -19,8 +20,8 @@ public class Satellite extends SimulationElement implements Observable {
 	protected Point position;
 	private ArrayList<Integer> memoire;
 	private boolean locked;
-	private ArrayList<Observer> balises;
 	private BaliseFrame vue;
+	private Notifier notifier;
 	
 	public Satellite(Point position, BaliseFrame app) {
 		// TODO Auto-generated constructor stub
@@ -28,7 +29,7 @@ public class Satellite extends SimulationElement implements Observable {
 		this.position = position;
 		this.locked = false;
 		this.vue = app;
-		this.balises = new ArrayList<Observer>();
+		this.notifier = new Notifier();
 	}
 	
 	public Point getPosition() {
@@ -65,24 +66,17 @@ public class Satellite extends SimulationElement implements Observable {
 	}
 
 	@Override
-	public void register(Observer o) {
-		//TODO Auto-generated method stub
-		if (!this.balises.contains(o))
-			this.balises.add(o);
+	public void register(Synchronizable s) {
+		this.notifier.addReceiver(s);
 	}
 
 	@Override
-	public void unregister(Observer o) {
-		//TODO Auto-generated method stub
-		this.balises.remove(o);
+	public void unregister(Synchronizable s) {
+		this.notifier.removeReceiver(s);
 	}
 
 	@Override
 	public void notifyAll(Notification n) {
-		// TODO Auto-generated method stub
-		for (int i = 0 ; i < this.balises.size() ; i++) {
-			this.balises.get(i).receive(n);
-		}
+		this.notifier.sendNotification(n);
 	}
-
 }
