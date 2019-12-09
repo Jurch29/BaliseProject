@@ -22,6 +22,7 @@ public class Main {
 		System.out.println("Nombre de satellite ?");
 		int nbSat = Integer.parseInt(Tools.readKeyboard());
 		
+		//test
 //		System.out.println("Nombre de balises ?");
 //		int nbBalise = Integer.parseInt(Tools.readKeyboard());
 		
