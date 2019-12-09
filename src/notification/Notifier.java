@@ -23,11 +23,16 @@ public class Notifier {
 		}
 	}
 	
-	public void unregister() {
-		
+	public void removeListener(Class<? extends Notification> notification, SatelliteListener s) {
+		this.index.get(notification).remove(s);
 	}
 	
 	public void sendNotification(Notification n) {
-		
+		if (this.index.get(n.getClass())!=null) {
+			List<Object> listO = this.index.get(n.getClass());
+			for (int i = 0 ; i < listO.size() ; i++) {
+				n.run(listO.get(i));
+			}
+		}
 	}
 }

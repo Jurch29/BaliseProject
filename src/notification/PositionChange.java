@@ -10,6 +10,6 @@ public class PositionChange extends Notification {
 	@Override
 	public void run(Object o) {
 		// TODO Auto-generated method stub
-		((SatelliteListener) o).whenSatellitePositionChanged(this);
+		((SatelliteListener) o).tryToSynchronizeWith(this);
 	}
 }

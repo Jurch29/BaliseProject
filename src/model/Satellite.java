@@ -10,8 +10,6 @@ import notification.Notification;
 import notification.Notifier;
 import notification.PositionChange;
 import notification.SatelliteListener;
-import notification.Synchronizable;
-import observable.Observable;
 import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
@@ -70,8 +68,8 @@ public class Satellite extends SimulationElement {
 		this.notifier.addListener(notification, s);
 	}
 
-	public void unregister(Synchronizable s) {
-		this.notifier.removeReceiver(s);
+	public void unregister(Class<? extends Notification> notification, SatelliteListener s) {
+		this.notifier.removeListener(notification, s);
 	}
 
 }
