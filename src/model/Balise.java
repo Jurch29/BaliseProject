@@ -7,6 +7,8 @@ import deplacement.Deplacement;
 import deplacement.Direction;
 import deplacement.Verticale;
 import notification.Notification;
+import notification.PositionChange;
+import notification.SatelliteListener;
 import notification.Synchronizable;
 import phase.Mouvement;
 import phase.Phase;
@@ -14,7 +16,7 @@ import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
 
-public class Balise extends SimulationElement implements Synchronizable {
+public class Balise extends SimulationElement implements SatelliteListener {
 
 	private Point position;
 	private int data[];
@@ -118,38 +120,44 @@ public class Balise extends SimulationElement implements Synchronizable {
 			this.vue.updateBalise(this);
 		}
 	}
-	
+
 	public void synchroReady() {
 		//ajout dans le notifier
 		for (int i = 0 ; i < this.sats.size() ; i++) {
-			this.sats.get(i).register(this);
+			this.sats.get(i).register(PositionChange.class, this);
 		}
 	}
-	
+
 	public void addAllSats(ArrayList<Satellite> sats) {
 		// TODO Auto-generated method stub
 		this.sats.addAll(sats);
 	}
 
-	@Override
-	public void receive(Notification n) {
-		// TODO Auto-generated method stub
-		n.run(this);
-	}
+//	@Override
+//	public void receive(Notification n) {
+//		// TODO Auto-generated method stub
+//		n.run(this);
+//	}
+//
+//	@Override
+//	public void tryToSynchronizeWith(Object o) {
+//		// TODO Auto-generated method stub
+//		//logique métier
+//		if (this.position.x>((Satellite) o).getPosition().x-10 && (this.position.x<((Satellite) o).getPosition().x+10)) {
+//			//On est dans une zone de réception du satellite
+//			if (((Satellite) o).lock()) {
+//				((Satellite) o).addDataToMemory(this.getData());
+//				this.resetData();
+//				for (int i = 0 ; i < this.getSats().size() ; i++) {
+//					this.getSats().get(i).unregister(this);
+//				}
+//			}
+//		}
+//	}
 
 	@Override
-	public void tryToSynchronizeWith(Object o) {
+	public void whenSatellitePositionChanged(Notification n) {
 		// TODO Auto-generated method stub
-		//logique métier
-		if (this.position.x>((Satellite) o).getPosition().x-10 && (this.position.x<((Satellite) o).getPosition().x+10)) {
-			//On est dans une zone de réception du satellite
-			if (((Satellite) o).lock()) {
-				((Satellite) o).addDataToMemory(this.getData());
-				this.resetData();
-				for (int i = 0 ; i < this.getSats().size() ; i++) {
-					this.getSats().get(i).unregister(this);
-				}
-			}
-		}
+		
 	}
 }

@@ -9,13 +9,14 @@ import java.util.stream.Collectors;
 import notification.Notification;
 import notification.Notifier;
 import notification.PositionChange;
+import notification.SatelliteListener;
 import notification.Synchronizable;
 import observable.Observable;
 import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
 
-public class Satellite extends SimulationElement implements Observable {
+public class Satellite extends SimulationElement {
 	
 	protected Point position;
 	private ArrayList<Integer> memoire;
@@ -52,7 +53,7 @@ public class Satellite extends SimulationElement implements Observable {
 			else
 				this.position = new Point(this.position.x+GlobaleVariable.vitesseSat,this.position.y);
 			
-			this.notifyAll(new PositionChange(this));
+			this.notifier.sendNotification(new PositionChange(this));
 			this.vue.updateSatellite(this);
 		}
 	}
@@ -65,18 +66,12 @@ public class Satellite extends SimulationElement implements Observable {
 		return false;
 	}
 
-	@Override
-	public void register(Synchronizable s) {
-		this.notifier.addReceiver(s);
+	public void register(Class<? extends Notification> notification, SatelliteListener s) {
+		this.notifier.addListener(notification, s);
 	}
 
-	@Override
 	public void unregister(Synchronizable s) {
 		this.notifier.removeReceiver(s);
 	}
 
-	@Override
-	public void notifyAll(Notification n) {
-		this.notifier.sendNotification(n);
-	}
 }

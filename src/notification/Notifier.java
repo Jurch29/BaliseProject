@@ -1,35 +1,33 @@
 package notification;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Notifier {
 	
-	protected ArrayList<NotificationReceiver> receiver;
+	protected HashMap<Class<? extends Notification>, List<Object>> index;
 	
 	public Notifier() {
-		this.receiver = new ArrayList<NotificationReceiver>();
+		this.index = new HashMap<Class<? extends Notification>, List<Object>>();
 	}
 
-	public ArrayList<NotificationReceiver> getReceiver() {
-		return receiver;
-	}
-
-	public void setReceiver(ArrayList<NotificationReceiver> receiver) {
-		this.receiver = receiver;
+	public void addListener(Class<? extends Notification> notification, SatelliteListener s) {
+		if (this.index.get(notification) == null) {
+			List<Object> listO = new ArrayList<Object>();
+			listO.add(s);
+			this.index.put(notification, listO);
+		}
+		else {
+			this.index.get(notification).add(s);
+		}
 	}
 	
-	public void addReceiver(NotificationReceiver r) {
-		if (!this.receiver.contains(r))
-			this.receiver.add(r);
-	}
-
-	public void removeReceiver(NotificationReceiver r) {
-		this.receiver.remove(r);
+	public void unregister() {
+		
 	}
 	
 	public void sendNotification(Notification n) {
-		for (int i = 0 ; i < this.receiver.size() ; i++) {
-			this.receiver.get(i).receive(n);
-		}
+		
 	}
 }

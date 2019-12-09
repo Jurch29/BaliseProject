@@ -4,6 +4,6 @@ public abstract class Notification {
 	
 	protected Object source;
 	
-	public abstract void run(Synchronizable s);
+	public abstract void run(Object o);
 
 }
