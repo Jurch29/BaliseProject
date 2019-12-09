@@ -71,5 +71,4 @@ public class Satellite extends SimulationElement {
 	public void unregister(Class<? extends Notification> notification, SatelliteListener s) {
 		this.notifier.removeListener(notification, s);
 	}
-
 }

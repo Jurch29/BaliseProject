@@ -110,6 +110,10 @@ public class Balise extends SimulationElement implements SatelliteListener {
 		this.nbData = 0;
 	}
 	
+	public void addAllSats(ArrayList<Satellite> sats) {
+		this.sats.addAll(sats);
+	}
+	
 	@Override
 	public void run() {
 		while (this.baliseRun) {
@@ -127,15 +131,10 @@ public class Balise extends SimulationElement implements SatelliteListener {
 		}
 	}
 
-	public void addAllSats(ArrayList<Satellite> sats) {
-		// TODO Auto-generated method stub
-		this.sats.addAll(sats);
-	}
-
 	@Override
 	public void tryToSynchronizeWith(Notification n) {
 		Satellite s = (Satellite) n.getSource();
-		if (this.position.x>s.getPosition().x-10 && (this.position.x<s.getPosition().x+10)) {
+		if (this.position.x>s.getPosition().x-10 && this.position.x<s.getPosition().x+10) {
 			//On est dans une zone de réception du satellite
 			if (s.lock()) {
 				s.addDataToMemory(this.getData());
