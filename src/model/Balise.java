@@ -7,6 +7,8 @@ import deplacement.Deplacement;
 import deplacement.Direction;
 import deplacement.Verticale;
 import notification.Notification;
+import notification.NotificationRegistration;
+import notification.Notifier;
 import notification.PositionChange;
 import notification.SatelliteListener;
 import phase.Mouvement;
@@ -15,7 +17,7 @@ import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
 
-public class Balise extends SimulationElement implements SatelliteListener {
+public class Balise extends SimulationElement {
 
 	private Point position;
 	private int data[];
@@ -24,17 +26,16 @@ public class Balise extends SimulationElement implements SatelliteListener {
 	private Phase phase;
 	private Deplacement dep;
 	private boolean baliseRun;
-	private ArrayList<Satellite> sats;
 	private BaliseFrame vue;
 	
-	public Balise(Point p, BaliseFrame app) {
+	public Balise(Point p, BaliseFrame app, Notifier n) {
 		this.data = new int[10];
 		this.position = p;
 		this.profondeur = 0;
 		this.nbData = 0;
 		this.baliseRun = true;
 		this.vue = app;
-		this.sats = new ArrayList<Satellite>();
+		this.notifier = n;
 	}
 	
 	public int[] getData() {
@@ -43,14 +44,6 @@ public class Balise extends SimulationElement implements SatelliteListener {
 
 	public void setData(int[] data) {
 		this.data = data;
-	}
-	
-	public ArrayList<Satellite> getSats() {
-		return sats;
-	}
-
-	public void setSats(ArrayList<Satellite> sats) {
-		this.sats = sats;
 	}
 	
 	public Phase getPhase() {
@@ -110,10 +103,6 @@ public class Balise extends SimulationElement implements SatelliteListener {
 		this.nbData = 0;
 	}
 	
-	public void addAllSats(ArrayList<Satellite> sats) {
-		this.sats.addAll(sats);
-	}
-	
 	@Override
 	public void run() {
 		while (this.baliseRun) {
@@ -126,16 +115,16 @@ public class Balise extends SimulationElement implements SatelliteListener {
 
 	public void synchroReady() {
 		//ajout dans le notifier
-		for (int i = 0 ; i < this.sats.size() ; i++) {
-			this.sats.get(i).register(PositionChange.class, this);
-		}
+		NotificationRegistration nr = new 
+		this.notifier.addListener(PositionChange.class,this);
+		
+		
 	}
 
-	@Override
 	public void tryToSynchronizeWith(Notification n) {
 		Satellite s = (Satellite) n.getSource();
 		if (this.position.x>s.getPosition().x-10 && this.position.x<s.getPosition().x+10) {
-			//On est dans une zone de rÃ©ception du satellite
+			//On est dans une zone de réception du satellite
 			if (s.lock()) {
 				s.addDataToMemory(this.getData());
 				this.resetData();

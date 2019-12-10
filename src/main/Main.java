@@ -8,6 +8,7 @@ import deplacement.Horizontale;
 import deplacement.Verticale;
 import model.Balise;
 import model.Satellite;
+import notification.Notifier;
 import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
@@ -22,6 +23,7 @@ public class Main {
 		System.out.println("Nombre de satellite ?");
 		int nbSat = Integer.parseInt(Tools.readKeyboard());
 		
+		Notifier notifier = new Notifier();
 		
 //		System.out.println("Nombre de balises ?");
 //		int nbBalise = Integer.parseInt(Tools.readKeyboard());
@@ -30,24 +32,22 @@ public class Main {
 		
 		int ecart = GlobaleVariable.sizeX/nbSat;
 		for (int i = 0 ; i < nbSat ; i++) {
-			Satellite sat = new Satellite(new Point(ecart*i,10), app);
+			Satellite sat = new Satellite(new Point(ecart*i,10), app, notifier);
 			sats.add(sat);
 			app.addSatellite(sat, new Point(ecart*i,10));
 		}
 		
 		Point p = new Point(300,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
-		Balise balise = new Balise(p, app);
+		Balise balise = new Balise(p, app, notifier);
 		balise.setDep(new Horizontale(15, Direction.Gauche));
 		balise.addProfondeur(20);
-		balise.addAllSats(sats);
 		balises.add(balise);
 		app.addBalise(balise, p);
 		
 		p = new Point(100,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
-		Balise balise1 = new Balise(p, app);
+		Balise balise1 = new Balise(p, app, notifier);
 		balise1.setDep(new Verticale(15, Direction.Bas));
 		balise1.addProfondeur(20);
-		balise1.addAllSats(sats);
 		balises.add(balise1);
 		app.addBalise(balise1, p);
 		
@@ -69,3 +69,14 @@ public class Main {
 		}
 	}
 }
+
+
+
+
+/*
+Class notifier {
+Map<Class<? extends Notification>, List<NotificationRegistration>> index;
+}
+
+balayer toute les notifregistration de cette notif et invoke leur methode
+*/

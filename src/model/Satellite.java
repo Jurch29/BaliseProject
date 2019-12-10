@@ -20,15 +20,14 @@ public class Satellite extends SimulationElement {
 	private ArrayList<Integer> memoire;
 	private boolean locked;
 	private BaliseFrame vue;
-	private Notifier notifier;
 	
-	public Satellite(Point position, BaliseFrame app) {
+	public Satellite(Point position, BaliseFrame app, Notifier n) {
 		// TODO Auto-generated constructor stub
 		this.memoire = new ArrayList<Integer>();
 		this.position = position;
 		this.locked = false;
 		this.vue = app;
-		this.notifier = new Notifier();
+		this.notifier = n;
 	}
 	
 	public Point getPosition() {

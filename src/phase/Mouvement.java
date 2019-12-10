@@ -21,7 +21,7 @@ public class Mouvement extends Phase { //phase de mouvement seule (si d=null bal
 	@Override
 	public Phase nextPhase(Balise b) {
 		
-		//aprÃ¨s un mouvement on rentre en collecte
+		//après un mouvement on rentre en collecte
 		if (this.deplacement!=null) {
 			if (this.deplacement.isDeplacementFini())
 				return new Collecte(b.getDep());

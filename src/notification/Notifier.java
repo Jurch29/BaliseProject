@@ -8,6 +8,9 @@ public class Notifier {
 	
 	protected HashMap<Class<? extends Notification>, List<Object>> index;
 	
+	
+	protected HashMap<Class<? extends Notification>, List<NotificationRegistration>> index2;
+	
 	public Notifier() {
 		this.index = new HashMap<Class<? extends Notification>, List<Object>>();
 	}
@@ -29,6 +32,7 @@ public class Notifier {
 	
 	public void removeListener(Class<? extends Notification> notification, SatelliteListener s) {
 		this.index.get(notification).remove(s);
+		System.out.println("Remove");
 	}
 	
 	public void sendNotification(Notification n) {
