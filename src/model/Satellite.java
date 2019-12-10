@@ -1,15 +1,14 @@
 package model;
 
 import java.awt.Point;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import notification.Notification;
 import notification.Notifier;
 import notification.PositionChange;
-import notification.SatelliteListener;
 import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
@@ -50,7 +49,11 @@ public class Satellite extends SimulationElement {
 			else
 				this.position = new Point(this.position.x+GlobaleVariable.vitesseSat,this.position.y);
 			
-			this.notifier.sendNotification(new PositionChange(this));
+			try {
+				this.notifier.sendNotification(new PositionChange(this));
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
 			this.vue.updateSatellite(this);
 		}
 	}
@@ -63,11 +66,4 @@ public class Satellite extends SimulationElement {
 		return false;
 	}
 
-	public void register(Class<? extends Notification> notification, SatelliteListener s) {
-		this.notifier.addListener(notification, s);
-	}
-
-	public void unregister(Class<? extends Notification> notification, SatelliteListener s) {
-		this.notifier.removeListener(notification, s);
-	}
 }

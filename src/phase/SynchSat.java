@@ -23,7 +23,11 @@ public class SynchSat extends Phase {
 			b.setPosition(this.deplacement.getNextPoint(b.getPosition()));
 		}
 		else {
-			b.synchroReady();
+			try {
+				b.synchroReady();
+			} catch (NoSuchMethodException | SecurityException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

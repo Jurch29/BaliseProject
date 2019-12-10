@@ -1,45 +1,44 @@
 package notification;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Notifier {
 	
-	protected HashMap<Class<? extends Notification>, List<Object>> index;
-	
-	
-	protected HashMap<Class<? extends Notification>, List<NotificationRegistration>> index2;
+	protected HashMap<Class<? extends Notification>, List<NotificationRegistration>> index;
 	
 	public Notifier() {
-		this.index = new HashMap<Class<? extends Notification>, List<Object>>();
+		this.index = new HashMap<Class<? extends Notification>, List<NotificationRegistration>>();
 	}
-
-	public void addListener(Class<? extends Notification> notification, SatelliteListener s) {
+	
+	public void addListener(Class<? extends Notification> notification, NotificationRegistration nr) {
 		if (this.index.get(notification) == null) {
-			List<Object> listO = new ArrayList<Object>();
-			listO.add(s);
-			this.index.put(notification, listO);
-			System.out.println("Ajout first");
+			List<NotificationRegistration> listNR = new ArrayList<NotificationRegistration>();
+			listNR.add(nr);
+			this.index.put(notification, listNR);
 		}
 		else {
-			if (!this.index.get(notification).contains(s)) {
-				System.out.println("Ajout");
-				this.index.get(notification).add(s);
+			if (!this.index.get(notification).contains(nr)) {
+				this.index.get(notification).add(nr);
 			}
 		}
 	}
 	
-	public void removeListener(Class<? extends Notification> notification, SatelliteListener s) {
-		this.index.get(notification).remove(s);
+	public void removeListener(Class<? extends Notification> notification, NotificationRegistration nr) {
+		this.index.get(notification).remove(nr);
 		System.out.println("Remove");
 	}
 	
-	public void sendNotification(Notification n) {
-		if (this.index.get(n.getClass())!=null) {
-			List<Object> listO = this.index.get(n.getClass());
-			for (int i = 0 ; i < listO.size() ; i++) {
-				n.run(listO.get(i));
+	public void sendNotification(Notification n) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		List<NotificationRegistration> nr = this.index.get(n.getClass());
+		if (nr != null) {
+			for (int i = 0 ; i < nr.size() ; i++) {
+				Method m = nr.get(i).getMethod();
+				Object o = nr.get(i).getObserver();
+				m.invoke(o, n);
 			}
 		}
 	}

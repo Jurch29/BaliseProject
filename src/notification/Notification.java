@@ -12,6 +12,4 @@ public abstract class Notification {
 		this.source = source;
 	}
 
-	public abstract void run(Object o);
-
 }
