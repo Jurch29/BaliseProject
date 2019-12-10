@@ -30,6 +30,7 @@ public class Verticale extends Deplacement {
 	@Override
 	public Point getNextPoint(Point p) {
 		// TODO Auto-generated method stubs
+		System.out.println("bas");
 		value--;
 		if (this.direction==Direction.Bas) {
 			if (p.y+GlobaleVariable.vitesseBalise>GlobaleVariable.sizeY-10) 

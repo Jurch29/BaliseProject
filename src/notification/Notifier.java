@@ -17,9 +17,13 @@ public class Notifier {
 			List<Object> listO = new ArrayList<Object>();
 			listO.add(s);
 			this.index.put(notification, listO);
+			System.out.println("Ajout first");
 		}
 		else {
-			this.index.get(notification).add(s);
+			if (!this.index.get(notification).contains(s)) {
+				System.out.println("Ajout");
+				this.index.get(notification).add(s);
+			}
 		}
 	}
 	
