@@ -70,13 +70,3 @@ public class Main {
 	}
 }
 
-
-
-
-/*
-Class notifier {
-Map<Class<? extends Notification>, List<NotificationRegistration>> index;
-}
-
-balayer toute les notifregistration de cette notif et invoke leur methode
-*/

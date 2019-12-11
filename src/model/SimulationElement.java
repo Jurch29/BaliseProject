@@ -1,7 +1,5 @@
 package model;
 
-import java.lang.reflect.InvocationTargetException;
-
 import notification.Notifier;
 
 public abstract class SimulationElement extends Thread {

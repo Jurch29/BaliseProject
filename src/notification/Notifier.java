@@ -29,7 +29,6 @@ public class Notifier {
 	
 	public void removeListener(Class<? extends Notification> notification, NotificationRegistration nr) {
 		this.index.get(notification).remove(nr);
-		System.out.println("Remove");
 	}
 	
 	public void sendNotification(Notification n) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
