@@ -24,16 +24,12 @@ public class Collecte extends Phase {
 	
 	@Override
 	public Phase nextPhase(Balise b) {
-		if (b.isMemoryFull()) {   //Si condition sortie
+		//Si la mémoire est pleine on passe en phase de synchsat afin de remonter en surface
+		if (b.isMemoryFull()) {
 			return new SynchSat(this.deplacement);
 		}
-		else {
-//			System.out.println("je suis pas full : "+b.getNbData());
-		}
-		if (this.deplacement.isDeplacementFini()) {
-			return this;
-//			return new Mouvement(null);
-		}
+
+		//en phase de collecte le mouvement est infinie, changement de phase seulement si la mémoire est pleine
 		return this;
 	}
 }

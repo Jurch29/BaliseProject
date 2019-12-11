@@ -6,7 +6,6 @@ import model.Balise;
 public class Mouvement extends Phase { //phase de mouvement seule (si d=null balise au repos total))
 	
 	public Mouvement(Deplacement d) {
-		// TODO Auto-generated constructor stub
 		this.deplacement = d;
 	}
 
@@ -21,12 +20,12 @@ public class Mouvement extends Phase { //phase de mouvement seule (si d=null bal
 	@Override
 	public Phase nextPhase(Balise b) {
 		
-		//après un mouvement on rentre en collecte
+		//à la fin d'un mouvement on passe en collecte
 		if (this.deplacement!=null) {
 			if (this.deplacement.isDeplacementFini())
 				return new Collecte(b.getDep());
 		}
-		
+		//le mouvement continu
 		return this;
 	}
 }

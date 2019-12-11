@@ -1,7 +1,6 @@
 package deplacement;
 
 import java.awt.Point;
-
 import tools.GlobaleVariable;
 
 public class Verticale extends Deplacement {

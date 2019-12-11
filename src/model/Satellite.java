@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import notification.Notifier;
 import notification.PositionChange;
+import notification.Synchronized;
 import tools.GlobaleVariable;
 import tools.Tools;
 import vue.BaliseFrame;
@@ -36,7 +37,6 @@ public class Satellite extends SimulationElement {
 	public void addDataToMemory(int[] data) {
 		List<Integer> list = Arrays.stream(data).boxed().collect(Collectors.toList());
 		memoire.addAll(list);
-		this.locked = false;
 	}
 	
 	@Override
@@ -60,10 +60,20 @@ public class Satellite extends SimulationElement {
 	
 	public boolean lock() {
 		if (!this.locked) {
+			try {
+				//Une synchronization a lieu on envoie une notif
+				this.notifier.sendNotification(new Synchronized(this));
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
 			this.locked = true;
 			return true;
 		}
 		return false;
+	}
+	
+	public void unlock() {
+		this.locked = false;
 	}
 
 }
