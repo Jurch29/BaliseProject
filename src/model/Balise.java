@@ -117,7 +117,7 @@ public class Balise extends SimulationElement {
 	public void tryToSynchronizeWith(Notification n) throws NoSuchMethodException, SecurityException {
 		Satellite s = (Satellite) n.getSource();
 		if (this.position.x>s.getPosition().x-10 && this.position.x<s.getPosition().x+10) {
-			//On est dans une zone de réception du satellite
+			//On est dans une zone de rï¿½ception du satellite
 			if (s.lock()) {
 				s.addDataToMemory(this.getData());
 				s.unlock();

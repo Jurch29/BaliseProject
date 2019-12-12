@@ -1,10 +1,11 @@
 package deplacement;
 
 import java.awt.Point;
+import java.util.List;
 
 public class Libre extends Deplacement {
 	
-	public Libre() {
+	public Libre(List<Deplacement> deplacements) {
 		// TODO Auto-generated constructor stub
 	}
 

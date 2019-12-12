@@ -8,5 +8,5 @@ public class GlobaleVariable {
 	public static int sizeY = 600;
 	public static int hauteurMer = 200;
 	public static int vitesseSimulation = 50;
-	
+	public static int difficulteCollecte = 5;
 }

@@ -39,7 +39,7 @@ public class Notifier {
 			}
 			NotificationRegistration nr = new NotificationRegistration(o, m);
 			
-//			System.out.println(System.identityHashCode(m));
+			System.out.println("Balise unregister");
 			
 			this.index.get(notification).remove(nr);
 		}

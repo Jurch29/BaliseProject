@@ -1,6 +1,5 @@
 package phase;
 
-import deplacement.Deplacement;
 import deplacement.Direction;
 import deplacement.Verticale;
 import model.Balise;
@@ -8,10 +7,11 @@ import tools.GlobaleVariable;
 
 public class SynchSat extends Phase {
 	
-	private Deplacement memoryDeplacement;
+	boolean synchroSend;
 	
-	public SynchSat(Deplacement d) {
-		this.memoryDeplacement = d;
+	public SynchSat() {
+		//un flag pour envoyer un message de ready synchro une seule fois
+		this.synchroSend = false;
 	}
 	
 	@Override
@@ -23,7 +23,10 @@ public class SynchSat extends Phase {
 		}
 		else {
 			try {
-				b.synchroReady();
+				if (!synchroSend) {
+					this.synchroSend = true;
+					b.synchroReady();
+				}
 			} catch (NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
 			}

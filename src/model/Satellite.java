@@ -61,7 +61,7 @@ public class Satellite extends SimulationElement {
 	public boolean lock() {
 		if (!this.locked) {
 			try {
-				//Une synchronization a lieu on envoie une notif
+				//Une synchronization a lieu on envoie une notif (inutile dans ce cas car aucun object inscrit a synchronized)
 				this.notifier.sendNotification(new Synchronized(this));
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();
