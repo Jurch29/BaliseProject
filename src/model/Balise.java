@@ -1,10 +1,14 @@
 package model;
 
+import java.awt.Color;
 import java.awt.Point;
+import java.util.HashMap;
+
 import deplacement.Deplacement;
 import deplacement.Direction;
 import deplacement.Verticale;
 import notification.Notification;
+import notification.NotificationRegistration;
 import notification.Notifier;
 import notification.PositionChange;
 import phase.Mouvement;
@@ -23,6 +27,7 @@ public class Balise extends SimulationElement {
 	private Deplacement dep;
 	private boolean baliseRun;
 	private BaliseFrame vue;
+	private HashMap<Class<? extends Notification>, NotificationRegistration> notifMaps;
 	
 	public Balise(Point p, BaliseFrame app, Notifier n) {
 		this.data = new int[10];
@@ -32,6 +37,7 @@ public class Balise extends SimulationElement {
 		this.baliseRun = true;
 		this.vue = app;
 		this.notifier = n;
+		this.notifMaps = new HashMap<Class<? extends Notification>, NotificationRegistration>();
 	}
 	
 	public int[] getData() {
@@ -92,13 +98,13 @@ public class Balise extends SimulationElement {
 		this.data[nbData] = data;
 		this.nbData++;
 	}
-	
+
 	public void resetData() {
 //		System.out.println("Data reset");
 		this.data = new int[10];
 		this.nbData = 0;
 	}
-	
+
 	@Override
 	public void run() {
 		while (this.baliseRun) {
@@ -110,19 +116,21 @@ public class Balise extends SimulationElement {
 	}
 
 	public void synchroReady() throws NoSuchMethodException, SecurityException {
-		//ajout dans le notifier
-		this.notifier.addListener(PositionChange.class,this,"tryToSynchronizeWith");
+		//ajout dans le notifier + ds notre maps de notifs
+		this.notifMaps.put(PositionChange.class, this.notifier.addListener(PositionChange.class,this,"tryToSynchronizeWith"));
 	}
 
 	public void tryToSynchronizeWith(Notification n) throws NoSuchMethodException, SecurityException {
 		Satellite s = (Satellite) n.getSource();
+		this.vue.updateBaliseColor(this, Color.green);
 		if (this.position.x>s.getPosition().x-10 && this.position.x<s.getPosition().x+10) {
-			//On est dans une zone de rï¿½ception du satellite
+			//On est dans une zone de réception du satellite
 			if (s.lock()) {
 				s.addDataToMemory(this.getData());
 				s.unlock();
 				this.resetData();
-				this.notifier.removeListener(PositionChange.class,this,"tryToSynchronizeWith");
+				this.notifier.removeListener(PositionChange.class,this.notifMaps.get(PositionChange.class));
+				this.vue.updateBaliseColor(this, Color.black);
 			}
 		}
 	}

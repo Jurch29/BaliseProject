@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class Satellite extends SimulationElement {
 		if (!this.locked) {
 			try {
 				//Une synchronization a lieu on envoie une notif (inutile dans ce cas car aucun object inscrit a synchronized)
+				this.vue.updateSatColor(this, Color.orange);
 				this.notifier.sendNotification(new Synchronized(this));
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();
@@ -73,6 +75,7 @@ public class Satellite extends SimulationElement {
 	}
 	
 	public void unlock() {
+		this.vue.updateSatColor(this, Color.red);
 		this.locked = false;
 	}
 

@@ -14,7 +14,7 @@ public class Notifier {
 		this.index = new HashMap<Class<? extends Notification>, List<NotificationRegistration>>();
 	}
 	
-	public void addListener(Class<? extends Notification> notification, Object o, String strMethod) throws NoSuchMethodException, SecurityException {
+	public NotificationRegistration addListener(Class<? extends Notification> notification, Object o, String strMethod) throws NoSuchMethodException, SecurityException {
 		Method m = o.getClass().getMethod(strMethod, Notification.class);
 		NotificationRegistration nr = new NotificationRegistration(o, m);
 		if (this.index.get(notification) == null) {
@@ -27,22 +27,14 @@ public class Notifier {
 				this.index.get(notification).add(nr);
 			}
 		}
+		return nr;
 	}
 	
-	public void removeListener(Class<? extends Notification> notification, Object o, String strMethod) {
+	public boolean removeListener(Class<? extends Notification> notification, NotificationRegistration nr) {
 		if (this.index.get(notification)!=null) {
-			Method m = null;
-			try {
-				m = o.getClass().getMethod(strMethod, Notification.class);
-			} catch (NoSuchMethodException | SecurityException e) {
-				e.printStackTrace();
-			}
-			NotificationRegistration nr = new NotificationRegistration(o, m);
-			
-			System.out.println("Balise unregister");
-			
-			this.index.get(notification).remove(nr);
+			return this.index.get(notification).remove(nr);
 		}
+		return false;
 	}
 	
 	public void sendNotification(Notification n) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {

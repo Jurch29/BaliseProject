@@ -77,4 +77,14 @@ public class BaliseFrame {
 		GRect satDraw = this.satellites.get(sat);
 		satDraw.setPosition(sat.getPosition());
 	}
+	
+	public void updateBaliseColor(Balise b, Color c) {
+		GOval baliseDraw = this.balises.get(b);
+		baliseDraw.setColor(c);
+	}
+	
+	public void updateSatColor(Satellite s, Color c) {
+		GRect SatDraw = this.satellites.get(s);
+		SatDraw.setColor(c);
+	}
 }
