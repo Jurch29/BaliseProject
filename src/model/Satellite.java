@@ -55,7 +55,7 @@ public class Satellite extends SimulationElement {
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();
 			}
-			this.vue.updateSatellite(this);
+			this.vue.updateSatellitePosition(this);
 		}
 	}
 	

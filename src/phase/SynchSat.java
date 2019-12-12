@@ -35,6 +35,7 @@ public class SynchSat extends Phase {
 	
 	@Override
 	public Phase nextPhase(Balise b) {
+		//a la fin d'une synchro on plonge
 		if (b.isMemoryEmpty()) {
 			return new Mouvement(new Verticale(b.getProfondeur(), Direction.Bas));
 		}

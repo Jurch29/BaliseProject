@@ -3,7 +3,7 @@ package phase;
 import deplacement.Deplacement;
 import model.Balise;
 
-public class Mouvement extends Phase { //phase de mouvement seule (si d=null balise au repos total))
+public class Mouvement extends Phase { //phase de mouvement seule (si d=null balise au repos))
 	
 	public Mouvement(Deplacement d) {
 		this.deplacement = d;
@@ -11,7 +11,6 @@ public class Mouvement extends Phase { //phase de mouvement seule (si d=null bal
 
 	@Override
 	public void step(Balise b) {
-		// TODO Auto-generated method stub
 		if (deplacement!=null) {
 			b.setPosition(this.deplacement.getNextPoint(b.getPosition()));
 		}
@@ -19,8 +18,7 @@ public class Mouvement extends Phase { //phase de mouvement seule (si d=null bal
 	
 	@Override
 	public Phase nextPhase(Balise b) {
-		
-		//à la fin d'un mouvement on passe en collecte
+		//a la fin d'un mouvement on passe en collecte
 		if (this.deplacement!=null) {
 			if (this.deplacement.isDeplacementFini())
 				return new Collecte(b.getDep());

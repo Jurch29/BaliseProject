@@ -111,7 +111,7 @@ public class Balise extends SimulationElement {
 			Tools.sleep(GlobaleVariable.vitesseSimulation);
 			this.phase.step(this);
 			this.phase = this.phase.nextPhase(this);
-			this.vue.updateBalise(this);
+			this.vue.updateBalisePosition(this);
 		}
 	}
 
@@ -124,7 +124,7 @@ public class Balise extends SimulationElement {
 		Satellite s = (Satellite) n.getSource();
 		this.vue.updateBaliseColor(this, Color.green);
 		if (this.position.x>s.getPosition().x-10 && this.position.x<s.getPosition().x+10) {
-			//On est dans une zone de réception du satellite
+			//On est dans une zone de rï¿½ception du satellite
 			if (s.lock()) {
 				s.addDataToMemory(this.getData());
 				s.unlock();

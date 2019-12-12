@@ -3,13 +3,11 @@ package deplacement;
 import java.awt.Point;
 import tools.GlobaleVariable;
 
-public class Verticale extends Deplacement {
-
-	private int value;
-	private Direction direction;
+public class Verticale extends Linéaire {
 
 	public Verticale(int value, Direction d) {
 		this.value = value;
+		this.originalValue = value;
 		this.direction = d;
 	}
 	

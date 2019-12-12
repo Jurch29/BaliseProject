@@ -17,8 +17,10 @@ public class Libre extends Deplacement {
 	@Override
 	public Point getNextPoint(Point p) {
 		// TODO Auto-generated method stub
-		if (this.deplacements.get(this.cursor).isDeplacementFini())
+		if (this.deplacements.get(this.cursor).isDeplacementFini()) {
+			this.deplacements.get(this.cursor).resetDeplacement();
 			this.cursor++;
+		}
 		if (this.cursor==this.deplacements.size())
 			this.cursor=0;
 		return this.deplacements.get(this.cursor).getNextPoint(p);

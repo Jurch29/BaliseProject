@@ -4,14 +4,11 @@ import java.awt.Point;
 
 import tools.GlobaleVariable;
 
-public class Horizontale extends Deplacement {
-
-	private int value;
-	private Direction direction;
+public class Horizontale extends Linéaire {
 
 	public Horizontale(int value, Direction d) {
-		//TODO Auto-generated constructor stub
 		this.value = value;
+		this.originalValue = value;
 		this.direction = d;
 	}
 

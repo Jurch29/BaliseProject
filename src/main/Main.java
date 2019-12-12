@@ -52,7 +52,9 @@ public class Main {
 		
 		List<Deplacement> deplacements = new ArrayList<Deplacement>();
 		deplacements.add(new Verticale(5,Direction.Bas));
-		deplacements.add(new Horizontale(5,Direction.Droite));
+		deplacements.add(new Horizontale(15,Direction.Droite));
+		deplacements.add(new Horizontale(8,Direction.Gauche));
+		deplacements.add(new Verticale(4,Direction.Haut));
 		
 		p = new Point(200,GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
 		Balise balise2 = new Balise(p, app, notifier);

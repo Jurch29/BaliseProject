@@ -25,7 +25,7 @@ public class Collecte extends Phase {
 	
 	@Override
 	public Phase nextPhase(Balise b) {
-		//Si la m�moire est pleine on passe en phase de synchsat afin de remonter en surface
+		//Si la memoire est pleine on passe en phase de synchsat afin de remonter en surface
 		if (b.isMemoryFull()) {
 			return new SynchSat();
 		}

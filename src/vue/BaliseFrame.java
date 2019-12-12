@@ -68,12 +68,12 @@ public class BaliseFrame {
 		}
 	}
 	
-	public void updateBalise(Balise b) {
+	public void updateBalisePosition(Balise b) {
 		GOval baliseDraw = this.balises.get(b);
 		baliseDraw.setPosition(b.getPosition());
 	}
 
-	public void updateSatellite(Satellite sat) {
+	public void updateSatellitePosition(Satellite sat) {
 		GRect satDraw = this.satellites.get(sat);
 		satDraw.setPosition(sat.getPosition());
 	}
