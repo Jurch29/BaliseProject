@@ -29,14 +29,14 @@ public class Verticale extends Linéaire {
 		// TODO Auto-generated method stubs
 		value--;
 		if (this.direction==Direction.Bas) {
-			if (p.y+GlobaleVariable.vitesseBalise>GlobaleVariable.sizeY-10) 
+			if (p.y+GlobaleVariable.vitesseBalise>GlobaleVariable.sizeY-10)
 				return new Point(p.x, p.y);
 			else
 				return new Point(p.x, p.y+GlobaleVariable.vitesseBalise);
 		}
 		else if (this.direction==Direction.Haut) {
-			if (p.y-GlobaleVariable.vitesseBalise<GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5)
-				return new Point(p.x, p.y);
+			if (p.y-GlobaleVariable.vitesseBalise<GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5) 
+				return new Point(p.x, GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
 			else
 				return new Point(p.x, p.y-GlobaleVariable.vitesseBalise);
 		}

@@ -100,7 +100,6 @@ public class Balise extends SimulationElement {
 	}
 
 	public void resetData() {
-//		System.out.println("Data reset");
 		this.data = new int[10];
 		this.nbData = 0;
 	}
