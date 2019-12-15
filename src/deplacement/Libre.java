@@ -9,14 +9,12 @@ public class Libre extends Deplacement {
 	private int cursor;
 	
 	public Libre(List<Deplacement> deplacements) {
-		// TODO Auto-generated constructor stub
 		this.deplacements = deplacements;
 		this.cursor = 0;
 	}
 
 	@Override
 	public Point getNextPoint(Point p) {
-		// TODO Auto-generated method stub
 		if (this.deplacements.get(this.cursor).isDeplacementFini()) {
 			this.deplacements.get(this.cursor).resetDeplacement();
 			this.cursor++;

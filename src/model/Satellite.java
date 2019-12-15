@@ -23,7 +23,6 @@ public class Satellite extends SimulationElement {
 	private BaliseFrame vue;
 	
 	public Satellite(Point position, BaliseFrame app, Notifier n) {
-		// TODO Auto-generated constructor stub
 		this.memoire = new ArrayList<Integer>();
 		this.position = position;
 		this.locked = false;
@@ -59,8 +58,10 @@ public class Satellite extends SimulationElement {
 		}
 	}
 	
+	//Vérouiller le satellite lors d'une synchro (pas forcèment utile)
 	public boolean lock() {
 		if (!this.locked) {
+			this.locked = true;
 			try {
 				//Une synchronization a lieu on envoie une notif (inutile dans ce cas car aucun object inscrit a synchronized)
 				this.vue.updateSatColor(this, Color.orange);
@@ -68,7 +69,6 @@ public class Satellite extends SimulationElement {
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				e.printStackTrace();
 			}
-			this.locked = true;
 			return true;
 		}
 		return false;
@@ -78,5 +78,4 @@ public class Satellite extends SimulationElement {
 		this.vue.updateSatColor(this, Color.red);
 		this.locked = false;
 	}
-
 }

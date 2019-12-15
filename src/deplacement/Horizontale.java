@@ -27,7 +27,6 @@ public class Horizontale extends Linéaire {
 
 	@Override
 	public Point getNextPoint(Point p) {
-		// TODO Auto-generated method stub
 		value--;
 		if (this.direction == Direction.Droite) {
 			if (p.x+GlobaleVariable.vitesseBalise>GlobaleVariable.sizeX)

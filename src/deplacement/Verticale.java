@@ -26,7 +26,6 @@ public class Verticale extends Linéaire {
 	
 	@Override
 	public Point getNextPoint(Point p) {
-		// TODO Auto-generated method stubs
 		value--;
 		if (this.direction==Direction.Bas) {
 			if (p.y+GlobaleVariable.vitesseBalise>GlobaleVariable.sizeY-10)
@@ -37,6 +36,7 @@ public class Verticale extends Linéaire {
 		else if (this.direction==Direction.Haut) {
 			if (p.y-GlobaleVariable.vitesseBalise<GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5) 
 				return new Point(p.x, GlobaleVariable.sizeY-GlobaleVariable.hauteurMer-5);
+			
 			else
 				return new Point(p.x, p.y-GlobaleVariable.vitesseBalise);
 		}

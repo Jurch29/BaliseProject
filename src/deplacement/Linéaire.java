@@ -15,8 +15,6 @@ public abstract class Linéaire extends Deplacement {
 	
 	@Override
 	public Point getNextPoint(Point p) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

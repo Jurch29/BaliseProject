@@ -14,9 +14,7 @@ public class Notifier {
 		this.index = new HashMap<Class<? extends Notification>, List<NotificationRegistration>>();
 	}
 	
-	public NotificationRegistration addListener(Class<? extends Notification> notification, Object o, String strMethod) throws NoSuchMethodException, SecurityException {
-		Method m = o.getClass().getMethod(strMethod, Notification.class);
-		NotificationRegistration nr = new NotificationRegistration(o, m);
+	public void addListener(Class<? extends Notification> notification, NotificationRegistration nr) throws NoSuchMethodException, SecurityException {
 		if (this.index.get(notification) == null) {
 			List<NotificationRegistration> listNR = new ArrayList<NotificationRegistration>();
 			listNR.add(nr);
@@ -24,26 +22,31 @@ public class Notifier {
 		}
 		else {
 			if (!this.index.get(notification).contains(nr)) {
-				this.index.get(notification).add(nr);
+				synchronized (this.index.get(notification)) {
+					this.index.get(notification).add(nr);
+				}
 			}
 		}
-		return nr;
 	}
 	
 	public boolean removeListener(Class<? extends Notification> notification, NotificationRegistration nr) {
 		if (this.index.get(notification)!=null) {
-			return this.index.get(notification).remove(nr);
+			synchronized (this.index.get(notification)) {
+				return this.index.get(notification).remove(nr);
+			}
 		}
 		return false;
 	}
 	
 	public void sendNotification(Notification n) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		List<NotificationRegistration> nr = this.index.get(n.getClass());
-		if (nr != null) {
-			for (int i = 0 ; i < nr.size() ; i++) {
-				Method m = nr.get(i).getMethod();
-				Object o = nr.get(i).getObserver();
-				m.invoke(o, n);
+		List<NotificationRegistration> nrList = this.index.get(n.getClass());
+		if (nrList != null && nrList.size()!=0) {
+			synchronized (nrList) {
+				for (int i = 0 ; i < nrList.size() ; i++) {
+					Method m = nrList.get(i).getMethod();
+					Object o = nrList.get(i).getObserver();
+					m.invoke(o, n);
+				}
 			}
 		}
 	}

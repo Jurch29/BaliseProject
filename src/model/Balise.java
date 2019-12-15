@@ -90,7 +90,6 @@ public class Balise extends SimulationElement {
 	}
 	
 	public boolean isMemoryFull() {
-		// TODO Auto-generated method stub
 		return this.nbData==9;
 	}
 	
@@ -116,12 +115,14 @@ public class Balise extends SimulationElement {
 
 	public void synchroReady() throws NoSuchMethodException, SecurityException {
 		//ajout dans le notifier + ds notre maps de notifs
-		this.notifMaps.put(PositionChange.class, this.notifier.addListener(PositionChange.class,this,"tryToSynchronizeWith"));
+		this.vue.updateBaliseColor(this, Color.green);
+		NotificationRegistration nr = new NotificationRegistration(this, this.getClass().getMethod("tryToSynchronizeWith", Notification.class));
+		this.notifMaps.put(PositionChange.class, nr);
+		this.notifier.addListener(PositionChange.class,nr);
 	}
 
 	public void tryToSynchronizeWith(Notification n) throws NoSuchMethodException, SecurityException {
 		Satellite s = (Satellite) n.getSource();
-		this.vue.updateBaliseColor(this, Color.green);
 		if (this.position.x>s.getPosition().x-10 && this.position.x<s.getPosition().x+10) {
 			//On est dans une zone de r�ception du satellite
 			if (s.lock()) {
