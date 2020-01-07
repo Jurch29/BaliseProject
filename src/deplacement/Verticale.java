@@ -3,7 +3,7 @@ package deplacement;
 import java.awt.Point;
 import tools.GlobaleVariable;
 
-public class Verticale extends Linéaire {
+public class Verticale extends Lineaire {
 
 	public Verticale(int value, Direction d) {
 		this.value = value;

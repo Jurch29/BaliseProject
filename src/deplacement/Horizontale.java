@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import tools.GlobaleVariable;
 
-public class Horizontale extends Linéaire {
+public class Horizontale extends Lineaire {
 
 	public Horizontale(int value, Direction d) {
 		this.value = value;

@@ -2,7 +2,7 @@ package deplacement;
 
 import java.awt.Point;
 
-public abstract class Linéaire extends Deplacement {
+public abstract class Lineaire extends Deplacement {
 
 	protected int value;
 	protected int originalValue;
